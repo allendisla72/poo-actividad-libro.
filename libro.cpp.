@@ -1,0 +1,105 @@
+#include <iostream>
+#include <string>
+#include <limits>
+
+using namespace std;
+
+// Definición de la Clase Libro
+class Libro {
+private:
+    // Atributos privados (Encapsulamiento)
+    string titulo;
+    string autor;
+    int anioPublicacion;
+    string edicion;
+    int cantidadPaginas;
+
+public:
+    // Constructor por defecto
+    Libro() {
+        titulo = "";
+        autor = "";
+        anioPublicacion = 0;
+        edicion = "";
+        cantidadPaginas = 0;
+    }
+
+    // Métodos Setter para asignar valores a los atributos
+    void setTitulo(const string &t) { titulo = t; }
+    void setAutor(const string &a) { autor = a; }
+    void setAnioPublicacion(int anio) { anioPublicacion = anio; }
+    void setEdicion(const string &e) { edicion = e; }
+    void setCantidadPaginas(int paginas) { cantidadPaginas = paginas; }
+
+    // Métodos Getter para obtener los valores
+    string getTitulo() const { return titulo; }
+    string getAutor() const { return autor; }
+    int getAnioPublicacion() const { return anioPublicacion; }
+    string getEdicion() const { return edicion; }
+    int getCantidadPaginas() const { return cantidadPaginas; }
+
+    // Método público para mostrar la información del libro
+    void mostrarInformacion() const {
+        cout << "------------------------------------------" << endl;
+        cout << "Título:                " << titulo << endl;
+        cout << "Autor:                 " << autor << endl;
+        cout << "Año de Publicación:    " << anioPublicacion << endl;
+        cout << "Edición:               " << edicion << endl;
+        cout << "Cantidad de Páginas:   " << cantidadPaginas << endl;
+        cout << "------------------------------------------" << endl;
+    }
+};
+
+int main() {
+    const int CANTIDAD_LIBROS = 5;
+    Libro biblioteca[CANTIDAD_LIBROS]; // Arreglo para almacenar 5 objetos tipo Libro
+
+    cout << "==========================================" << endl;
+    cout << "     REGISTRO DE LIBROS EN BIBLIOTECA     " << endl;
+    cout << "==========================================" << endl << endl;
+
+    // Captura de datos para los 5 libros
+    for (int i = 0; i < CANTIDAD_LIBROS; i++) {
+        string t, a, e;
+        int anio, paginas;
+
+        cout << ">>> Ingrese los datos del Libro #" << (i + 1) << " <<<" << endl;
+
+        cout << "Título: ";
+        getline(cin, t);
+        biblioteca[i].setTitulo(t);
+
+        cout << "Autor: ";
+        getline(cin, a);
+        biblioteca[i].setAutor(a);
+
+        cout << "Año de publicación: ";
+        cin >> anio;
+        biblioteca[i].setAnioPublicacion(anio);
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpiar el buffer de entrada
+
+        cout << "Edición (ej. '1ra Edición'): ";
+        getline(cin, e);
+        biblioteca[i].setEdicion(e);
+
+        cout << "Cantidad de páginas: ";
+        cin >> paginas;
+        biblioteca[i].setCantidadPaginas(paginas);
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpiar el buffer de entrada
+        cout << endl;
+    }
+
+    // Mostrar en pantalla la información de los 5 libros
+    cout << "\n==========================================" << endl;
+    cout << "     LISTADO DE LIBROS REGISTRADOS        " << endl;
+    cout << "==========================================" << endl;
+
+    for (int i = 0; i < CANTIDAD_LIBROS; i++) {
+        cout << "\nLibro #" << (i + 1) << ":" << endl;
+        biblioteca[i].mostrarInformacion();
+    }
+
+    return 0;
+}
